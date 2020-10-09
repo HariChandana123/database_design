@@ -41,8 +41,7 @@
         border-radius: 4px;
         cursor: pointer;
     }
-
-    .center {
+    .center{
         margin: auto;
         width: 50%;
     }
@@ -51,14 +50,13 @@
     <a class='nav_items' href="/">SHOW MOVIES LIST</a>
     <a class='nav_items' href="/get_add_movie_template">ADD MOVIE</a>
 </nav>
-
-<div class="center">
-    <h1 style='text-align: center;'>ADD MOVIE</h1>
-    <form action="/add_movie" method="POST">
+<div class='center'>
+<h1 style='text-align: center;'>UPDATE MOVIE</h1>
+    <form action="/update_movie/{{rows[0]}}" method="POST">
         <label>Movie Name:</label>
-        <input type="text" size="100" maxlength="100" name="name"><br>
+        <input type="text" size="100" maxlength="100" name="name" value="{{rows[1]}}"><br>
         <label>Director:</label>
-        <input type="text" size="100" maxlength="100" name="director"><br>
-        <input type="submit" name="save" value="Save">
+        <input type="text" size="100" maxlength="100" name="director" value="{{rows[2]}}">
+        <input type="submit" name="update" value="Update">
     </form>
 </div>

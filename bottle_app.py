@@ -43,6 +43,39 @@ def add_movie_to_db():
     redirect("/")
 
 
+@get("/get_movie_by_id/<id:int>")
+def get_update_movie_data(id):
+    connection = sqlite3.connect("movies.db")
+    cursor = connection.cursor()
+    cursor.execute("select * from movies where id=?", (id, ))
+    result = cursor.fetchone()
+    cursor.close()
+    return template("update_movie", rows=result)
+
+
+@post("/update_movie/<id:int>")
+def update_movie(id):
+    name = request.forms.get("name").strip()
+    director = request.forms.get("director").strip()
+    connection = sqlite3.connect("movies.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "update movies set name =(?), director=(?) where id = (?)", (name, director, id))
+    connection.commit()
+    cursor.close()
+    redirect("/")
+
+
+@get("/delete_movie/<id:int>")
+def delete_movie_from_db(id):
+    connection = sqlite3.connect("movies.db")
+    cursor = connection.cursor()
+    cursor.execute("delete from movies where id=?", (id, ))
+    connection.commit()
+    cursor.close()
+    redirect("/")
+
+
 if ON_PYTHONANYWHERE:
     # on PA, connect to the WSGI server
     application = default_app()
